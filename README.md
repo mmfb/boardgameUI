@@ -1,6 +1,6 @@
 # Game Template
 
-Template for creating a two player turn based web games with Node.js/Express.js and P5.js. 
+Two player turn based web games with Node.js/Express.js and P5.js based on the the template [game_template](https://github.com/mmfb/game_template) 
 
 Specifications:
 * Web based game: board and/or cards game

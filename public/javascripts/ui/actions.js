@@ -11,18 +11,9 @@ async function getGameInfo() {
     }
 }
 
-
-async function endturnAction() {
-    let result = await requestEndTurn();
-    if (result.successful) {
-        await  getGameInfo();
-        GameInfo.prepareUIforWaiting();
-    } else alert("Something went wrong when ending the turn.")
-}
-
-
 async function rollAction() {
-    let number = Math.ceil(Math.random()*6);
-    alert(number);
-    GameInfo.dice.roll(number);
+    let result = await requestRollDice();
+    GameInfo.dice.roll(result.dice);
+    await getGameInfo();
+    GameInfo.prepareUI();      
 }

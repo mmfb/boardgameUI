@@ -19,11 +19,13 @@ class GameInfo  {
     static endturnButton;
     static rollButton;
 
-    static prepareUIforPlaying() {
-        GameInfo.endturnButton.show();
+    static prepareUI() {
+        if (GameInfo.game.player.state == "Roll") {
+            GameInfo.rollButton.show();
+        } else {
+            GameInfo.rollButton.hide();
+        }
     }
 
-    static prepareUIforWaiting() {
-        GameInfo.endturnButton.hide();
-    }
+
 }

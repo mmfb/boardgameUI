@@ -5,7 +5,7 @@ async function refresh() {
         await  getGameInfo();       
         if (GameInfo.game.player.state != "Waiting") {
             // The moment we pass from waiting to play
-            GameInfo.prepareUIforPlaying();
+            GameInfo.prepareUI();
         }
     } 
     // Nothing to do when we are playing since we control all that happens 
@@ -26,11 +26,6 @@ async function setup() {
     setInterval(refresh,1000);
 
     //buttons (create a separated function if they are many)
-    GameInfo.endturnButton = createButton('End Turn');
-    GameInfo.endturnButton.parent('game');
-    GameInfo.endturnButton.position(GameInfo.width-150,GameInfo.height-50);
-    GameInfo.endturnButton.mousePressed(endturnAction);
-    GameInfo.endturnButton.addClass('game');
 
     GameInfo.rollButton = createButton('Roll Dice');
     GameInfo.rollButton.parent('game');
@@ -39,13 +34,8 @@ async function setup() {
     GameInfo.rollButton.addClass('game');
 
 
-
-    if (GameInfo.game.player.state == "Waiting") {
-        GameInfo.prepareUIforWaiting();
-    } else {
-        GameInfo.prepareUIforPlaying();
-    }
-
+    GameInfo.prepareUI();
+    
     GameInfo.dice = new Dice(1,50,150,100,100,
         GameInfo.images.dice,GameInfo.sounds.dice);
 
