@@ -1,13 +1,13 @@
 
 async function refresh() {
-    if (GameInfo.game.player.state == "Waiting") { 
+    if (GameInfo.game.player.state == "Waiting") {
         // Every time we are waiting
-        await  getGameInfo();       
+        await getGameInfo();
         if (GameInfo.game.player.state != "Waiting") {
             // The moment we pass from waiting to play
             GameInfo.prepareUI();
         }
-    } 
+    }
     // Nothing to do when we are playing since we control all that happens 
     // so no update is needed from the server
 }
@@ -22,25 +22,23 @@ async function setup() {
     let canvas = createCanvas(GameInfo.width, GameInfo.height);
     canvas.parent('game');
     // preload  images
-    
+
     await getGameInfo();
     await getBoardInfo();
-    setInterval(refresh,1000);
+    setInterval(refresh, 1000);
 
     //buttons (create a separated function if they are many)
 
     GameInfo.rollButton = createButton('Roll Dice');
     GameInfo.rollButton.parent('game');
-    GameInfo.rollButton.position(180,200);
+    GameInfo.rollButton.position(180, 200);
     GameInfo.rollButton.mousePressed(rollAction);
     GameInfo.rollButton.addClass('game');
 
+    GameInfo.dice = new Dice(1, 50, 150, 100, 100,
+        GameInfo.images.dice, GameInfo.sounds.dice);
 
     GameInfo.prepareUI();
-    
-    GameInfo.dice = new Dice(1,50,150,100,100,
-        GameInfo.images.dice,GameInfo.sounds.dice);
-
 
     GameInfo.loading = false;
 }
@@ -51,15 +49,22 @@ function draw() {
         textAlign(CENTER, CENTER);
         textSize(40);
         fill('black');
-        text('Loading...', GameInfo.width/2, GameInfo.height/2);
+        text('Loading...', GameInfo.width / 2, GameInfo.height / 2);
     } else {
         GameInfo.scoreBoard.draw();
         GameInfo.board.draw();
         GameInfo.dice.draw();
+        GameInfo.dice.update();
     }
 }
 
-async function mouseClicked() {
-  
+function mousePressed() {
+    GameInfo.dice.press();
 }
+
+function mouseReleased() {
+    GameInfo.dice.release();
+}        
+
+
 

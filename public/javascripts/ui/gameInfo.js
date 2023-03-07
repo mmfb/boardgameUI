@@ -26,8 +26,13 @@ class GameInfo  {
     static prepareUI() {
         if (GameInfo.game.player.state == "Roll") {
             GameInfo.rollButton.show();
-        } else {
+            GameInfo.dice.draggable = false;
+        } else if (GameInfo.game.player.state == "Place") {
             GameInfo.rollButton.hide();
+            GameInfo.dice.draggable = true;      
+        }  else if (GameInfo.game.player.state == "Waiting"){
+            GameInfo.rollButton.hide();
+            GameInfo.dice.draggable = false;    
         }
     }
 }
