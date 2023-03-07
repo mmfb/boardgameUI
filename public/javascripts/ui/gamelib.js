@@ -15,6 +15,7 @@ async function refresh() {
 function preload() {
     GameInfo.images.dice = loadImage("/assets/dice.png");
     GameInfo.sounds.dice = loadSound("/assets/dice.flac");
+    GameInfo.images.boardbg = loadImage("/assets/window_green.png");
 }
 
 async function setup() {
@@ -22,7 +23,8 @@ async function setup() {
     canvas.parent('game');
     // preload  images
     
-    await  getGameInfo();
+    await getGameInfo();
+    await getBoardInfo();
     setInterval(refresh,1000);
 
     //buttons (create a separated function if they are many)
@@ -52,6 +54,7 @@ function draw() {
         text('Loading...', GameInfo.width/2, GameInfo.height/2);
     } else {
         GameInfo.scoreBoard.draw();
+        GameInfo.board.draw();
         GameInfo.dice.draw();
     }
 }
